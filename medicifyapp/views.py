@@ -791,7 +791,7 @@ def account(request):
                 fail_silently=True
             )
 
-            messages.success(request, 'Check Your Email for Activate Your Account !!!')
+            messages.success(request, 'Check Your Email To Activate Your Account !!!')
 
 
             return redirect('/')
