@@ -74,6 +74,8 @@
 	                            <div class="row justify-content-between">
 	                                <div class="col-lg-6">
 										<h3 id="nameproduct{{Product_Details_details.id}}">{{Product_Details_details.product_name}}</h3>
+										<h7><b>Category :</b> <span id="get_cats">{{Product_Details_details.category.category_name}}</span></h7><br><br>
+										<h7><b>Subcategory :</b> <span id="get_subcats">{{Product_Details_details.subcategory.Subcategory}}</span></h7>
 
 
 										<!--	                                    <h3>Details</h3>-->
@@ -92,9 +94,9 @@
 <!--												</span>-->
 
 <!--											</span>-->
-											<span class="new_price" id="currency_typeproduct{{Product_Details_details.id}}">
-												{{Product_Details_details.currency_type}}
-												</span>
+											<!--<span class="new_price" id="currency_typeproduct{{Product_Details_details.id}}">-->
+											<!--	{{Product_Details_details.currency_type}}-->
+											<!--	</span>-->
 
 											<span class="percentage">
 												{{Product_Details_details.product_status}}
@@ -235,6 +237,9 @@ var pic_product = '/media/{{Product_Details_details.image}}'
 // console.log(pic_product)
 // console.log(product_cart)
 
+var get_cats_var = document.getElementById('get_cats').innerHTML;
+var get_subcats_var = document.getElementById('get_subcats').innerHTML;
+
 
 // if the add to card button is clicked, add/increament the item
 $('.product_cart').click(function(){
@@ -250,8 +255,8 @@ $('.product_cart').click(function(){
 		qty = 1;
 		name = document.getElementById('name' + idstr).innerHTML;
 		price = document.getElementById('price' + idstr).innerHTML;
-		currency_type=document.getElementById('currency_type' + idstr).innerHTML;
-		product_cart[idstr] = [qty, name, parseInt(price), currency_type, pic_product];
+		currency_type= 'ZAR';
+		product_cart[idstr] = [qty, name, parseInt(price), currency_type, pic_product, get_cats_var, get_subcats_var];
 		// console.log(product_cart[idstr]);
 	}
 	// console.log("before update");

@@ -213,10 +213,10 @@
 
 					{% endif %}
 
-		
+
 	</main>
 	<!--/main-->
-	
+
 
 
 
@@ -224,12 +224,12 @@
 	<!-- page -->
 
 	<div id="toTop"></div><!-- Back to top button -->
-	
+
 	<!-- COMMON SCRIPTS -->
     <script src="{% static 'medicifyapp/cart/js/common_scripts.min.js' %}"></script>
     <script src="{% static 'medicifyapp/cart/js/main.js' %}"></script>
 
-		
+
 </body>
 
 {% endblock %}
@@ -320,7 +320,7 @@ var totalprice=0;
 
 if ($.isEmptyObject(product_cart)){
 	mystr = `<p class="text-center">Your Cart Is Empty. Add Some Product for checkout!!</p>`
-	$('#items').append(mystr);	
+	$('#items').append(mystr);
 }
 else{
 	for (item in product_cart){
@@ -329,6 +329,8 @@ else{
 		let itemprice=product_cart[item][2]
 		let currency_type = product_cart[item][3]
 		var img_prod = product_cart[item][4]
+		var cat_name = product_cart[item][5]
+		var subcat_name = product_cart[item][6]
 
 		sum = sum + qty;
 		itemtotalprice=qty* itemprice;
@@ -341,7 +343,7 @@ else{
 		console.log(currency_type1.replace(/ /g, ""));
 
 
-		prod_details= prod_details + `[Product Name : ${name}, Qty:${qty}], `
+		prod_details= prod_details + `[Product Name : ${name}, Qty:${qty}, Cat:${cat_name}, Subcat:${subcat_name}], `
 
 		//all_prod=all_prod+', '+name
 		all_prod.push(name)
