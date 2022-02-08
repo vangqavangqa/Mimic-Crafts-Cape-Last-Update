@@ -57,7 +57,7 @@
 							<div class="grid_item">
 <!--								<span class="ribbon off">{{n.product_status}}</span>-->
 								<figure>
-									<a href="{% url 'details_products' n.id %}">
+									<a href="{% url 'products_subcats_brands' %}?subcategory={{n.id}}">
 										<img class="card-img-top" src="/media/{{n.Subcategory_image}}" data-src="/media/{{n.image}}" alt="" style="max-width:100%; width:auto; height:100px; display: block; margin-left: auto; margin-right: auto; padding-top:12px;">
 <!--										<img class="img-fluid lazy" src="/media/{{n.image}}" data-src="/media/{{n.image}}" alt="">-->
 									</a>
