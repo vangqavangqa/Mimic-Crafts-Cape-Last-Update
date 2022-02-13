@@ -593,7 +593,7 @@ function updateCart(product_cart){
 		document.getElementById('div'+item).innerHTML = "<button id='minus" + item +"' class='btn_1 minus'>-</button> <span id='val" + item + "''>" + product_cart[item][0] + "</span> <button id='plus" + item + "'class='btn_1 plus'> + </button>";
 	}
 	localStorage.setItem('product_cart', JSON.stringify(product_cart))
-	document.getElementById('product_cart').innerHTML = sum;
+	//document.getElementById('product_cart').innerHTML = sum;
 	updatePopover(product_cart);
 }
 

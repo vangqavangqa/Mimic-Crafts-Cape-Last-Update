@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product_Details, Categories, posted_jobs, job_post_status, Order, EmailConfirmed, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table
+from .models import Product_Details, Categories, posted_jobs, job_post_status, Order, EmailConfirmed, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links
 
 # Register your models here.
 
@@ -34,6 +34,17 @@ class show_product(admin.ModelAdmin):
     list_display = ['id', 'product_name', 'category', 'subcategory', 'Brands', 'product_status']
 
 
+class show_Special_Offer_Categories(admin.ModelAdmin):
+    list_display = ['Offer_Name', 'Category', 'Percentage']
+
+
+class show_Social_link(admin.ModelAdmin):
+    list_display = ['Website', 'link']
+
+
+admin.site.register(Social_Links, show_Social_link)
+admin.site.register(Table_Special_Offer_Categories, show_Special_Offer_Categories)
+admin.site.register(Table_Special_Offer)
 admin.site.register(Custom_Project, show_Custom_Project)
 admin.site.register(newsletter_table, show_newsletter)
 admin.site.register(Product_Details, show_product)
@@ -49,3 +60,6 @@ admin.site.register(blog_post)
 admin.site.register(Blogs_Comments)
 admin.site.register(Brands)
 admin.site.register(catalog)
+admin.site.register(Navbar_logo_text_table)
+admin.site.register(Number_Table_Navbar_Footer)
+admin.site.register(Address_text_table)

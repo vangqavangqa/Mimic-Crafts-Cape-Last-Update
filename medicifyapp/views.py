@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Product_Details, Categories, posted_jobs, job_post_status, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table
+from .models import Product_Details, Categories, posted_jobs, job_post_status, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links
 from django.db.models import Q
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage
@@ -15,6 +15,9 @@ from django.shortcuts import get_object_or_404
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 import json
+from datetime import datetime
+from django.core import serializers
+from django.http import JsonResponse
 
 
 @csrf_exempt
@@ -22,6 +25,63 @@ def get_catalog(request):
     last_catalog = catalog.objects.last()
     url_catalog = last_catalog.catalog_url
     return HttpResponse(url_catalog)
+
+
+
+@csrf_exempt
+def get_logo_text(request):
+    print('working')
+    last_logo_text = Navbar_logo_text_table.objects.last()
+    print(last_logo_text)
+    if last_logo_text:
+        main_text = last_logo_text.logo_text
+        return HttpResponse(main_text)
+    else:
+        return HttpResponse(False)
+
+
+@csrf_exempt
+def get_number(request):
+    last_number_text = Number_Table_Navbar_Footer.objects.last()
+    if last_number_text:
+        main_num = last_number_text.number
+        return HttpResponse(main_num)
+    else:
+        return HttpResponse(False)
+
+
+@csrf_exempt
+def get_address_text(request):
+    last_address_text = Address_text_table.objects.last()
+    if last_address_text:
+        main_address = last_address_text.Address
+        return HttpResponse(main_address)
+    else:
+        return HttpResponse(False)
+
+
+@csrf_exempt
+def get_social_links(request):
+    all_links = Social_Links.objects.all()
+    get_subcat_seri = serializers.serialize('json', all_links)
+    return JsonResponse(get_subcat_seri, safe=False)
+
+
+def special_offer(request):
+    all_get_offer =Table_Special_Offer.objects.all()
+    if all_get_offer:
+        get_offer = Table_Special_Offer.objects.last()
+        get_cats = Table_Special_Offer_Categories.objects.filter(Offer_Name=get_offer)
+
+        campaign_last_time = get_offer.offer_expiry_date
+        print(type(campaign_last_time))
+        dates_end_strptime = datetime.strptime(str(campaign_last_time), '%Y-%m-%d').strftime('%b %d, %Y')
+
+        context = {'get_offer': get_offer, 'get_cats': get_cats, 'dates_end_strptime': dates_end_strptime}
+        return render(request, 'special_offer.html', context)
+    else:
+        return render(request, 'special_offer.html')
+
 
 
 def index(request):

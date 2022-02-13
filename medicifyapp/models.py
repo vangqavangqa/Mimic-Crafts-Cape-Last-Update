@@ -253,3 +253,64 @@ class newsletter_table(models.Model):
     time = models.DateTimeField(default=datetime.now(), blank=True)
     def __str__(self):
         return self.email_address
+
+
+class Navbar_logo_text_table(models.Model):
+    class Meta:
+        verbose_name_plural = 'Navbar Logo Text Table'
+    logo_text = models.CharField(max_length=255)
+    def __str__(self):
+        return self.logo_text
+
+
+class Number_Table_Navbar_Footer(models.Model):
+    class Meta:
+        verbose_name_plural = 'Number Table Navbar Footer'
+    number = models.CharField(max_length=255)
+    def __str__(self):
+        return self.number
+
+
+class Address_text_table(models.Model):
+    class Meta:
+        verbose_name_plural = 'Address Text Table'
+    Address = models.CharField(max_length=255)
+    def __str__(self):
+        return self.Address
+
+
+class Table_Special_Offer(models.Model):
+    class Meta:
+        verbose_name_plural = 'Special Offer'
+    Offer_Name = models.CharField(max_length=255)
+    offer_expiry_date = models.DateField()
+
+    def __str__(self):
+        return self.Offer_Name
+
+    # def save(self, *args, **kwargs):
+    #
+    #     super(Table_Special_Offer, self).save(*args, **kwargs)
+
+
+class Table_Special_Offer_Categories(models.Model):
+    class Meta:
+        verbose_name_plural = 'Special Offer Categories'
+    Offer_Name = models.ForeignKey(Table_Special_Offer, on_delete=models.CASCADE)
+    Category = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    Percentage = models.IntegerField()
+
+
+class Social_Links(models.Model):
+    class Meta:
+        verbose_name_plural = 'Social Links'
+    site = (
+        ("Facebook", "Facebook"),
+        ("Instagram", "Instagram"),
+    )
+    Website = models.CharField(max_length=255, choices=site, default="Facebook")
+    link = models.CharField(max_length=255)
+    def __str__(self):
+        return self.Website
+
+
