@@ -112,7 +112,7 @@ class Product_Details(models.Model):
     datasheets = models.FileField(upload_to='uploads/datasheets', null=True, blank=True, default='')
 
     def __str__(self):
-        return self.product_name
+        return "("+ str(self.id) + ") " +self.product_name
 
 
 class contact_table(models.Model):
@@ -283,6 +283,7 @@ class Table_Special_Offer(models.Model):
     class Meta:
         verbose_name_plural = 'Special Offer'
     Offer_Name = models.CharField(max_length=255)
+    Offer_Text = models.TextField(null=True, blank=True, default='')
     offer_expiry_date = models.DateField()
 
     def __str__(self):
@@ -301,14 +302,19 @@ class Table_Special_Offer_Categories(models.Model):
     Percentage = models.IntegerField()
 
 
+class Table_Special_Offer_Products(models.Model):
+    class Meta:
+        verbose_name_plural = 'Special Offer Products'
+    Offer_Name = models.ForeignKey(Table_Special_Offer, on_delete=models.CASCADE)
+    Product = models.ForeignKey(Product_Details, on_delete=models.CASCADE)
+    Percentage = models.IntegerField()
+
+
 class Social_Links(models.Model):
     class Meta:
         verbose_name_plural = 'Social Links'
-    site = (
-        ("Facebook", "Facebook"),
-        ("Instagram", "Instagram"),
-    )
-    Website = models.CharField(max_length=255, choices=site, default="Facebook")
+
+    Website = models.CharField(max_length=255, default="")
     link = models.CharField(max_length=255)
     def __str__(self):
         return self.Website

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Product_Details, Categories, posted_jobs, job_post_status, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links
+from .models import Product_Details, Categories, posted_jobs, job_post_status, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products
 from django.db.models import Q
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage
@@ -71,13 +71,13 @@ def special_offer(request):
     all_get_offer =Table_Special_Offer.objects.all()
     if all_get_offer:
         get_offer = Table_Special_Offer.objects.last()
-        get_cats = Table_Special_Offer_Categories.objects.filter(Offer_Name=get_offer)
+        get_prds = Table_Special_Offer_Products.objects.filter(Offer_Name=get_offer)
 
         campaign_last_time = get_offer.offer_expiry_date
         print(type(campaign_last_time))
         dates_end_strptime = datetime.strptime(str(campaign_last_time), '%Y-%m-%d').strftime('%b %d, %Y')
 
-        context = {'get_offer': get_offer, 'get_cats': get_cats, 'dates_end_strptime': dates_end_strptime}
+        context = {'get_offer': get_offer, 'get_prds': get_prds, 'dates_end_strptime': dates_end_strptime}
         return render(request, 'special_offer.html', context)
     else:
         return render(request, 'special_offer.html')

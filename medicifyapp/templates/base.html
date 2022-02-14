@@ -451,7 +451,7 @@
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script>
 
 	$.ajax({
@@ -529,11 +529,53 @@
 				console.log(Website3)
 
 				if(Website3 == "Facebook"){
-					console.log('ffffffaca')
-					search_result = search_result + `<li id="facebook"><i class="ti-facebook"></i><a href="${link3}" target="_blank">Facebook</a></li>`;
+					search_result = search_result + `<li><i class="ti-facebook"></i><a href="${link3}" target="_blank">${Website3}</a></li>`;
 				}
+				else if(Website3 == "facebook"){
+					search_result = search_result + `<li><i class="ti-facebook"></i><a href="${link3}" target="_blank">${Website3}</a></li>`;
+				}
+				else if(Website3 == "Instagram"){
+					search_result = search_result + `<li><i class="ti-instagram"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+				else if(Website3 == "instagram"){
+					search_result = search_result + `<li><i class="ti-instagram"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+
+
+				else if(Website3 == "Twitter"){
+					search_result = search_result + `<li><i class="ti-twitter"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+
+				else if(Website3 == "twitter"){
+					search_result = search_result + `<li><i class="ti-twitter"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+
+				else if(Website3 == "Youtube"){
+					search_result = search_result + `<li><i class="ti-youtube"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+
+				else if(Website3 == "youtube"){
+					search_result = search_result + `<li><i class="ti-youtube"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+				else if(Website3 == "Pinterest"){
+					search_result = search_result + `<li><i class="ti-pinterest"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+
+				else if(Website3 == "pinterest"){
+					search_result = search_result + `<li><i class="ti-pinterest"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+
+				else if(Website3 == "Snapchat"){
+					search_result = search_result + `<li><i class="fa fa-snapchat"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+
+				else if(Website3 == "snapchat"){
+					search_result = search_result + `<li><i class="fa fa-snapchat"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
+				}
+
+
 				else{
-					search_result = search_result + `<li id="instagram"><i class="ti-instagram"></i><a href="${link3}" target="_blank">Instagram</a></li>`
+					search_result = search_result + `<li><i class="ti-world"></i><a href="${link3}" target="_blank">${Website3}</a></li>`
 				}
 			}
 			document.getElementById('social_links_id').innerHTML = search_result;
