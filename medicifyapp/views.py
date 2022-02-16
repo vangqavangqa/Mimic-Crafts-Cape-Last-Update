@@ -934,7 +934,18 @@ def details_products(request, pk):
 
     Categories_all = Categories.objects.all()
 
-    context3 = {'Product_Details_details':Product_Details_details, 'Product_Details_by_cate':Product_Details_by_cate, 'Categories_all':Categories_all}
+
+    get_offer = Table_Special_Offer.objects.last()
+    check_Special_Offer_Products = Table_Special_Offer_Products.objects.filter(Offer_Name=get_offer, Product=Product_Details_details)
+
+    if check_Special_Offer_Products:
+        check_Special_Offer_Products = Table_Special_Offer_Products.objects.get(Offer_Name=get_offer,
+                                                                                   Product=Product_Details_details)
+        value_percentage = check_Special_Offer_Products.Percentage
+    else:
+        value_percentage = 0
+
+    context3 = {'Product_Details_details':Product_Details_details, 'Product_Details_by_cate':Product_Details_by_cate, 'Categories_all':Categories_all, 'value_percentage':value_percentage}
     return render(request, 'products_details.html', context3)
 
 

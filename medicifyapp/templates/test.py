@@ -71,3 +71,12 @@
 
 # var_1 = 8.9908777
 # print(type(var_1))
+#
+# var_arrey = [[4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], [17, 18, 19, 20]]
+# a = var_arrey[0][0]
+# b = var_arrey[1][1]
+# c = var_arrey[2][2]
+# d = var_arrey[3][3]
+#
+# sum = a+b+c+d
+# print(sum)

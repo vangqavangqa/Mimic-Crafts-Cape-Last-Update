@@ -6,7 +6,6 @@
 
 
 {% block body %}
-
 <main class="">
 	    <div class="container margin_30">
 	        <div class="page_header">
@@ -233,6 +232,8 @@
 
 <script>
 
+var percentage_qty = '{{value_percentage}}'
+console.log(percentage_qty)
 var pic_product = '/media/{{Product_Details_details.image}}'
 // console.log(pic_product)
 // console.log(product_cart)
@@ -256,7 +257,7 @@ $('.product_cart').click(function(){
 		name = document.getElementById('name' + idstr).innerHTML;
 		price = document.getElementById('price' + idstr).innerHTML;
 		currency_type= 'ZAR';
-		product_cart[idstr] = [qty, name, parseInt(price), currency_type, pic_product, get_cats_var, get_subcats_var];
+		product_cart[idstr] = [qty, name, parseInt(price), currency_type, pic_product, get_cats_var, get_subcats_var, parseInt(percentage_qty)];
 		// console.log(product_cart[idstr]);
 	}
 	// console.log("before update");

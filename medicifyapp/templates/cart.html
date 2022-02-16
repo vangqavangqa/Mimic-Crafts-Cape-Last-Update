@@ -331,6 +331,8 @@ else{
 		var img_prod = product_cart[item][4]
 		var cat_name = product_cart[item][5]
 		var subcat_name = product_cart[item][6]
+		var percentage_qty = product_cart[item][7]
+
 
 		sum = sum + qty;
 		itemtotalprice=qty* itemprice;
@@ -343,7 +345,7 @@ else{
 		console.log(currency_type1.replace(/ /g, ""));
 
 
-		prod_details= prod_details + `[Product Name : ${name}, Qty:${qty}, Cat:${cat_name}, Subcat:${subcat_name}], `
+		prod_details= prod_details + `[Product Name : ${name}, Qty:${qty}, Cat:${cat_name}, Subcat:${subcat_name}, Discount Offer: ${percentage_qty}%], `
 
 		//all_prod=all_prod+', '+name
 		all_prod.push(name)
@@ -408,6 +410,7 @@ function increase_qty_func(prod_id){
 	product_cart[prod_id][0] = product_cart[prod_id][0] + 1;
 	document.getElementById('quantity'+prod_id).value = product_cart[prod_id][0];
 	updateCart(product_cart)
+	reload_cart_page()
 }
 
 function decrease_qty_func(prod_id){
@@ -418,6 +421,11 @@ function decrease_qty_func(prod_id){
 	console.log(product_cart[prod_id][0])
 	document.getElementById('quantity'+prod_id).value = product_cart[prod_id][0];
 	updateCart(product_cart)
+	reload_cart_page()
+}
+
+function reload_cart_page(){
+	document.location='/cart'
 }
 
 //$('#total_bill').val(JSON.stringify(totalprice));
