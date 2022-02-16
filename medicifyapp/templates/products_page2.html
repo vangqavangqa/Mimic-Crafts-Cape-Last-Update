@@ -162,10 +162,27 @@
 							  <h2 class="mb-0">
 								<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne{{i.id}}" aria-expanded="false" aria-controls="collapseOne{{i.id}}">
 								  {% if i.subcat_list %}
-									{{i.category_name}} <small><a style="color:#8C19DB;" href="{% url 'subcats_of_cat' i.id %}">(visit&#8599;)</a></small>
-									{% else %}
-									<a href="{% url 'subcats_of_cat' i.id %}">{{i.category_name}}</a>
-									{% endif %}
+									<div class="row">
+										<div class="col-md-1" style="display: grid; justify-items: center; align-items: center;">
+											<span style="font-size:15px; color:#1D73CF;">▼</span>
+										</div>
+										<div class="col-md-10">
+											{{i.category_name}} <small><a style="color:#1D73CF;" href="{% url 'subcats_of_cat' i.id %}">(visit&#8599;)</a></small>
+										</div>
+									</div>
+								  {% else %}
+									<div class="row">
+										<div class="col-md-1">
+
+										</div>
+										<div class="col-md-10">
+											<a href="{% url 'subcats_of_cat' i.id %}">{{i.category_name}}</a>
+										</div>
+									</div>
+
+								  {% endif %}
+
+
 								</button>
 							  </h2>
 							</div>
@@ -190,19 +207,33 @@
 							<div class="card-header" id="headingOne_custom_project">
 							  <h2 class="mb-0">
 								<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne_custom_project" aria-expanded="false" aria-controls="collapseOne_custom_project">
-									<a href="{% url 'custom_project' %}">Custom Project</a>
+									<div class="row">
+										<div class="col-md-1">
+
+										</div>
+										<div class="col-md-10">
+											<a href="{% url 'custom_project' %}">Custom Project</a>
+										</div>
+									</div>
+
 								</button>
 							  </h2>
 							</div>
-
-
 						  </div>
 
 							<div class="card">
 							<div class="card-header" id="headingOne_special_offer">
 							  <h2 class="mb-0">
 								<button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne_special_offer" aria-expanded="false" aria-controls="collapseOne_special_offer">
-									<a href="{% url 'special_offer' %}">Special Offer</a>
+									<div class="row">
+										<div class="col-md-1">
+
+										</div>
+										<div class="col-md-10">
+											<a href="{% url 'special_offer' %}">Special Offer</a>
+										</div>
+									</div>
+
 								</button>
 							  </h2>
 							</div>

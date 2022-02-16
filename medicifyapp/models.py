@@ -284,6 +284,7 @@ class Table_Special_Offer(models.Model):
         verbose_name_plural = 'Special Offer'
     Offer_Name = models.CharField(max_length=255)
     Offer_Text = models.TextField(null=True, blank=True, default='')
+    offer_image= models.ImageField(null=True, blank=True, default=None)
     offer_expiry_date = models.DateField()
 
     def __str__(self):

@@ -76,8 +76,8 @@ def special_offer(request):
         campaign_last_time = get_offer.offer_expiry_date
         print(type(campaign_last_time))
         dates_end_strptime = datetime.strptime(str(campaign_last_time), '%Y-%m-%d').strftime('%b %d, %Y')
-
-        context = {'get_offer': get_offer, 'get_prds': get_prds, 'dates_end_strptime': dates_end_strptime}
+        Categories_all = Categories.objects.all()
+        context = {'get_offer': get_offer, 'get_prds': get_prds, 'dates_end_strptime': dates_end_strptime, 'Categories_all':Categories_all}
         return render(request, 'special_offer.html', context)
     else:
         return render(request, 'special_offer.html')
@@ -1137,7 +1137,9 @@ def blog_details(request, pk):
     all_comments = Blogs_Comments.objects.filter(Blog=gett_pst)
     all_commnt_count = all_comments.count()
 
-    context = {'gett_pst': gett_pst, 'all_latest_pst':all_latest_pst, 'all_commnt_count':all_commnt_count, 'all_comments':all_comments}
+    Categories_all = Categories.objects.all()
+
+    context = {'gett_pst': gett_pst, 'all_latest_pst':all_latest_pst, 'all_commnt_count':all_commnt_count, 'all_comments':all_comments, 'Categories_all':Categories_all}
     return render(request, 'blog_details.html', context)
 
 

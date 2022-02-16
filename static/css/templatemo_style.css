@@ -192,7 +192,7 @@ p {
 }
 
 .author-caption a:hover {
-  background-color: #f78e21;
+  background-color: #1D73CF;
   color: #fff;
 }
 
@@ -390,7 +390,7 @@ p {
 }
 
 .pagination a:hover {
-  background-color: #f78e21;
+  background-color: #1D73CF;
 }
 
 /*- End Products --*/
@@ -479,7 +479,7 @@ p {
   text-transform: uppercase;
   font-size: 14px;
   color: #fff;
-  background-color: #f78e21;
+  background-color: #1D73CF;
   width: 80px;
   height: 30px;
   line-height: 30px;
@@ -535,7 +535,7 @@ textarea {
   height: 35px;
   line-height: 30px;
   text-align: center;
-  background-color: #f78e21; 
+  background-color: #1D73CF;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   font-style: normal;
@@ -551,7 +551,7 @@ textarea {
   height: 35px;
   line-height: 30px;
   text-align: center;
-  background-color: #f78e21; 
+  background-color: #1D73CF;
   color: #fff;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
@@ -615,7 +615,7 @@ textarea {
   font-weight: 700;
   color: #fff;
   text-transform: uppercase;
-  background-color: #f78e21;
+  background-color: #1D73CF;
   margin-top: 0px;
   padding: 9px 15px 9px 15px;
 }
@@ -748,7 +748,7 @@ textarea {
   margin-top: 20px;
   text-decoration: none;
   display: inline-block;
-  background-color: #f78e21;
+  background-color: #1D73CF;
   width: 200px;
   height: 40px;
   text-align: center;
