@@ -32,7 +32,10 @@
 
 {% endfor %}
 {% endif %}
-<div class="top_banner">
+
+
+         {% if get_offer.offer_image %}
+         <div class="top_banner">
 			<div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.3)">
 				<div class="container">
                     <h1 class="display-4 text-center">{% if get_offer.Offer_Name %}{{get_offer.Offer_Name}}{% else %}EXPIRED{% endif %}</h1>
@@ -82,6 +85,57 @@
 			</div>
 			<img src="/media/{{get_offer.offer_image}}" class="img-fluid" alt="">
 		</div>
+         {% else %}
+         <div class="jumbotron">
+          <div class="container">
+                    <h1 class="display-4 text-center">{% if get_offer.Offer_Name %}{{get_offer.Offer_Name}}{% else %}EXPIRED{% endif %}</h1>
+                    <p class="lead text-center">{% if get_offer.Offer_Text %}{{get_offer.Offer_Text}}{% endif %}</p>
+					{% if get_offer.Offer_Name %}
+					 <div class="text-center">Last Date : <span id="get_campaign_last_time">{{dates_end_strptime}}</span></div>
+					{% endif %}
+
+
+					<div>
+					  <style type="text/css">
+						.tg  {border-collapse:collapse;border-spacing:0;}
+						.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+						  overflow:hidden;padding:10px 5px;word-break:normal;}
+						.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+						  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+						.tg .tg-rylt{background-color:#1D73CF; border-color:#ffffff; color:#ffffff;font-weight:bold;text-align:center;vertical-align:top}
+						</style>
+
+						<table class="tg" style="undefined;table-layout: fixed; width: 290px; margin-left: auto; margin-right: auto;">
+						<colgroup>
+							<col style="width: 73px">
+							<col style="width: 73px">
+							<col style="width: 73px">
+							<col style="width: 73px">
+						</colgroup>
+						<thead>
+						  <tr>
+							<th class="tg-rylt">Days</th>
+							<th class="tg-rylt">Hours</th>
+							<th class="tg-rylt">Minutes</th>
+							<th class="tg-rylt">Seconds</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr>
+							<td class="tg-rylt" id="days_show">00</td>
+							<td class="tg-rylt" id="hours_show">00</td>
+							<td class="tg-rylt" id="minutes_show">00</td>
+							<td class="tg-rylt" id="seconds_show">00</td>
+						  </tr>
+						</tbody>
+						</table>
+						</div>
+
+                  </div>
+        </div>
+         {% endif %}
+
+
 
 	<main>
 			<div class="container margin_30">

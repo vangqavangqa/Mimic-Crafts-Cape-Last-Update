@@ -85,8 +85,8 @@ def special_offer(request):
 
 
 def index(request):
-    Product_Details_all = Product_Details.objects.all().order_by('-id')
-    all_category = Categories.objects.all().order_by('-id')
+    Product_Details_all = Product_Details.objects.all()
+    all_category = Categories.objects.all()
     # pagination
     p = Paginator(all_category, 15)
     # print(p.num_pages)
@@ -111,7 +111,7 @@ def index(request):
     # print(Search_with_price_all)
 
     # query jobs
-    all_jobs = posted_jobs.objects.filter(job_post_status='2').order_by('-id')
+    all_jobs = posted_jobs.objects.filter(job_post_status='2')
     p_jobs = Paginator(all_jobs, 4)
     page2 = p_jobs.page(1)
 
@@ -198,7 +198,7 @@ def subcats_of_cat(request, pk):
 
 def brands_list_subcat(request, pk):
     get_Subcategory = Subcategory.objects.get(id=pk)
-    all_prd = Product_Details.objects.filter(subcategory=get_Subcategory).order_by('-id')
+    all_prd = Product_Details.objects.filter(subcategory=get_Subcategory)
     qty_brn = 0
     lst_brnd = []
     for i in all_prd:
@@ -249,7 +249,7 @@ def products_subcats_brands(request):
     get_Subcategory = Subcategory.objects.get(id=subcategory)
     # get_brand = Brands.objects.get(id=brand)
 
-    get_prod_brand_cat = Product_Details.objects.filter(subcategory=get_Subcategory).order_by('-id')
+    get_prod_brand_cat = Product_Details.objects.filter(subcategory=get_Subcategory)
 
     get_prod_brand_cat_qty = get_prod_brand_cat.count()
 
@@ -282,9 +282,9 @@ def products_subcats_brands(request):
 
 
 def products_page(request):
-    all_prd = Product_Details.objects.all().order_by('-id')
+    all_prd = Product_Details.objects.all()
 
-    Product_Details_all = Product_Details.objects.all().order_by('-id')
+    Product_Details_all = Product_Details.objects.all()
 
     # pagination
     p = Paginator(Product_Details_all, 15)
@@ -315,7 +315,7 @@ def products_page(request):
 
 def brand_products(request, pk):
     get_brnd = Brands.objects.get(id=pk)
-    products_of_brand = Product_Details.objects.filter(Brands=get_brnd).order_by('-id')
+    products_of_brand = Product_Details.objects.filter(Brands=get_brnd)
     # pagination
     p = Paginator(products_of_brand, 15)
     # print(p.num_pages)
