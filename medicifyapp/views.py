@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Product_Details, Categories, posted_jobs, job_post_status, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products
+from .models import Product_Details, Categories, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products
 from django.db.models import Q
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage
@@ -110,10 +110,7 @@ def index(request):
     # Search_with_price_all = Search_with_price.objects.all()
     # print(Search_with_price_all)
 
-    # query jobs
-    all_jobs = posted_jobs.objects.filter(job_post_status='2')
-    p_jobs = Paginator(all_jobs, 4)
-    page2 = p_jobs.page(1)
+
 
     # if not price2:
     #     price2 = Add_prod.objects.aggregate(Max('price'))['price__max']
@@ -129,7 +126,7 @@ def index(request):
     else:
         bennar_all = None
     all_latest_pst = blog_post.objects.order_by('-time')[:6]
-    context2 = {'cats':page, 'Categories_all':Categories_all, 'list':list, 'all_jobs':page2, 'page_num':page_num, 'bennar_all':bennar_all, 'bennar_first':bennar_first, 'page_num':page_num, 'all_latest_pst':all_latest_pst}
+    context2 = {'cats':page, 'Categories_all':Categories_all, 'list':list, 'page_num':page_num, 'bennar_all':bennar_all, 'bennar_first':bennar_first, 'page_num':page_num, 'all_latest_pst':all_latest_pst}
     return render(request, 'index.html', context2)
 
 
@@ -185,12 +182,8 @@ def subcats_of_cat(request, pk):
 
     Categories_all = Categories.objects.all()
 
-    # query jobs
-    all_jobs = posted_jobs.objects.filter(job_post_status='2').order_by('-id')
-    p_jobs = Paginator(all_jobs, 4)
-    page2 = p_jobs.page(1)
 
-    context2 = {'cats':page, 'Categories_all':Categories_all, 'list1':list, 'all_jobs':page2, 'page_num':page_num, 'page_num':page_num, 'qty_all_subcat':qty_all_subcat, 'get_category':get_category}
+    context2 = {'cats':page, 'Categories_all':Categories_all, 'list1':list, 'page_num':page_num, 'page_num':page_num, 'qty_all_subcat':qty_all_subcat, 'get_category':get_category}
 
     return render(request, 'index2.html', context2)
 
@@ -343,30 +336,6 @@ def profile(request):
     return render(request, 'profile.html', context22)
 
 
-def gp_jobs(request):
-    if request.method == "POST":
-        job_title = request.POST.get('job_title')
-        job_location = request.POST.get('job_location')
-        job_type = request.POST.get('job_type')
-        # print(job_title, job_location, job_type)
-
-
-        # search_jobs_form = posted_jobs.objects.filter(Q(job_title__icontains=job_title) | Q(job_details__icontains=job_title) | Q(job_location__icontains=job_location) | Q(job_type__icontains=job_type)).order_by('-id')
-
-        search_jobs_form = posted_jobs.objects.filter(Q(job_title__icontains=job_title) | Q(job_details__icontains=job_title)).filter(job_post_status='2').order_by('-id')
-
-        search_jobs_count = posted_jobs.objects.filter(Q(job_title__icontains=job_title) | Q(job_details__icontains=job_title)).filter(job_post_status='2').order_by('-id').count()
-
-        Categories_all = Categories.objects.all()
-
-        context13 = {'search_jobs_form':search_jobs_form, 'job_title':job_title, 'job_location':job_location, 'job_type':job_type, 'search_jobs_count':search_jobs_count, 'Categories_all':Categories_all}
-        return render(request, 'gp_jobs.html', context13)
-    else:
-        all_job_post = posted_jobs.objects.filter(job_post_status='2').order_by('-id')
-        Categories_all = Categories.objects.all()
-        context12 = {'all_job_post':all_job_post, 'Categories_all':Categories_all}
-        return render(request, 'gp_jobs.html', context12)
-
 
 def contact(request):
     name=request.POST.get('name')
@@ -387,76 +356,6 @@ def about(request):
     return render(request, 'about.html', context22)
 
 
-def see_my_post(request):
-    user = request.user
-    mypost = posted_jobs.objects.filter(user=user).order_by('-id')
-
-    # pagination
-    p = Paginator(mypost, 10)
-    # print(p.num_pages)
-    number_of_pages = p.num_pages
-
-    # show list of pages
-    number_of_pages_1 = p.num_pages + 1
-    list = []
-    for i in range(1, number_of_pages_1):
-        list.append(i)
-
-    page_num = request.GET.get('page', 1)
-    try:
-        page = p.page(page_num)
-    except EmptyPage:
-        page = p.page(1)
-
-    Categories_all = Categories.objects.all()
-
-    context11 = {'mypost':page, 'list':list, 'Categories_all':Categories_all}
-    return render(request, 'see_my_post.html', context11)
-
-
-def job_post_details(request, pk):
-    get_posted_jobs_id = posted_jobs.objects.get(id=pk)
-    Categories_all = Categories.objects.all()
-
-    context11 = {'get_posted_jobs_id':get_posted_jobs_id, 'Categories_all':Categories_all}
-    return render(request, 'job_post_details.html', context11)
-
-def post_job(request):
-    if request.method=="POST":
-        post_job_title1 = request.POST.get('post_job_title', '')
-        # a=post_job_title.capitalize()
-        post_job_title=post_job_title1.upper()
-        post_job_details = request.POST.get('post_job_details', '')
-        post_job_location1 = request.POST.get('post_job_location', '')
-        post_job_location = post_job_location1.upper()
-        post_job_type = request.POST.get('post_job_type', '')
-        jobs_salary = request.POST.get('jobs_salary', '')
-        phone_number = request.POST.get('phone_number')
-        email = request.POST.get('email')
-
-        company_name = request.POST.get('company_name', '')
-        qualification = request.POST.get('qualification', '')
-
-        job_p_status = request.POST.get('job_p_status')
-        # print(job_p_status)
-
-        het_job_pst_sttus = job_post_status.objects.get(job_post_status=job_p_status)
-
-        user = request.user
-        # print(user)
-
-        save_job_post = posted_jobs(user=user, job_title=post_job_title, company_name=company_name, job_details=post_job_details, qualification=qualification, job_location=post_job_location, job_type=post_job_type, salary=jobs_salary, phone_number=phone_number, job_post_status=het_job_pst_sttus, email=email)
-        save_job_post.save()
-
-        messages.success(request, 'Your Job Post is Under Review !! If Every Thing Alright, Your post will be Arrived in 48 hours !!')
-
-        return redirect('gp_jobs')
-    else:
-        get_status = job_post_status.objects.filter(id='1')
-        Categories_all = Categories.objects.all()
-
-        context10 = {'get_status': get_status, 'Categories_all':Categories_all}
-        return render(request, 'post_job.html', context10)
 
 
 def custom_project(request):
@@ -514,10 +413,8 @@ def custom_project(request):
 
         return redirect('index')
     else:
-        get_status = job_post_status.objects.filter(id='1')
         Categories_all = Categories.objects.all()
-
-        context10 = {'get_status': get_status, 'Categories_all':Categories_all}
+        context10 = {'Categories_all':Categories_all}
         return render(request, 'custom_project.html', context10)
 
 
@@ -564,13 +461,8 @@ def product_search(request):
     Categories_all = Categories.objects.all()
     # Search_with_price_all = Search_with_price.objects.all()
 
-    # query jobs
-    all_jobs = posted_jobs.objects.filter(job_post_status='2').order_by('-id')
-    p_jobs = Paginator(all_jobs, 4)
-    page2 = p_jobs.page(1)
-
     all_latest_pst = blog_post.objects.order_by('-time')[:6]
-    context5 = {'all_prd':page, 'search_product':search_product, 'Categories_all':Categories_all, 'search_result_count':search_result_count, 'list':list1, 'all_jobs':page2, 'page_num':page_num, 'all_latest_pst':all_latest_pst}
+    context5 = {'all_prd':page, 'search_product':search_product, 'Categories_all':Categories_all, 'search_result_count':search_result_count, 'list':list1, 'page_num':page_num, 'all_latest_pst':all_latest_pst}
     return render(request, 'products_page4.html', context5)
 
 
@@ -597,12 +489,8 @@ def category_search_by_user(request, pk):
 
     Categories_all = Categories.objects.all()
 
-    # query jobs
-    all_jobs = posted_jobs.objects.filter(job_post_status='2').order_by('-id')
-    p_jobs = Paginator(all_jobs, 4)
-    page2 = p_jobs.page(1)
     all_latest_pst = blog_post.objects.order_by('-time')[:6]
-    context={'Product_Details_all':page, 'list1':list, 'Categories_all':Categories_all, 'all_jobs':page2, 'page_num':page_num, 'all_latest_pst':all_latest_pst}
+    context={'Product_Details_all':page, 'list1':list, 'Categories_all':Categories_all, 'page_num':page_num, 'all_latest_pst':all_latest_pst}
     return render(request, 'index.html', context)
 
 
@@ -628,12 +516,9 @@ def subcategory_search_by_user(request, pk):
     except EmptyPage:
         page = p.page(1)
     Categories_all = Categories.objects.all()
-    # query jobs
-    all_jobs = posted_jobs.objects.filter(job_post_status='2').order_by('-id')
-    p_jobs = Paginator(all_jobs, 4)
-    page2 = p_jobs.page(1)
+
     all_latest_pst = blog_post.objects.order_by('-time')[:6]
-    context={'Product_Details_all':page, 'list1':list, 'Categories_all':Categories_all, 'all_jobs':page2, 'page_num':page_num, 'all_latest_pst':all_latest_pst}
+    context={'Product_Details_all':page, 'list1':list, 'Categories_all':Categories_all, 'page_num':page_num, 'all_latest_pst':all_latest_pst}
     return render(request, 'index.html', context)
 
 
@@ -678,12 +563,9 @@ def subcategory_search_by_user(request, pk):
 #         Categories_all = Categories.objects.all()
 #         Search_with_price_all = Search_with_price.objects.all()
 #
-#         # query jobs
-#         all_jobs = posted_jobs.objects.filter(job_post_status='2').order_by('-id')
-#         p_jobs = Paginator(all_jobs, 10)
-#         page2 = p_jobs.page(1)
+
 #
-#         context8 = {'Categories_all': Categories_all, 'Product_Details_all': page, 'get_all_prod_by_cat2': get_all_prod_by_cat2, 'cat_details_get': cat_details_get, 'Search_with_price_all':Search_with_price_all, 'price_details_get':price_details_get, 'list2':list2, 'all_jobs':page2}
+#         context8 = {'Categories_all': Categories_all, 'Product_Details_all': page, 'get_all_prod_by_cat2': get_all_prod_by_cat2, 'cat_details_get': cat_details_get, 'Search_with_price_all':Search_with_price_all, 'price_details_get':price_details_get, 'list2':list2}
 #
 #         return render(request, 'index.html', context8)
 #
@@ -716,14 +598,11 @@ def subcategory_search_by_user(request, pk):
 #         Categories_all = Categories.objects.all()
 #         Search_with_price_all = Search_with_price.objects.all()
 #
-#         # query jobs
-#         all_jobs = posted_jobs.objects.filter(job_post_status='2').order_by('-id')
-#         p_jobs = Paginator(all_jobs, 10)
-#         page2 = p_jobs.page(1)
+
 #
 #
 #         context5 = {'Categories_all': Categories_all, 'Product_Details_all': page,
-#                             'get_all_prod_by_cat2': get_all_prod_by_cat2, 'cat_details_get': cat_details_get, 'Search_with_price_all':Search_with_price_all, 'list2':list2, 'all_jobs':page2}
+#                             'get_all_prod_by_cat2': get_all_prod_by_cat2, 'cat_details_get': cat_details_get, 'Search_with_price_all':Search_with_price_all, 'list2':list2}
 #         return render(request, 'index.html', context5)
 #
 #     elif price_search_check:
@@ -764,12 +643,9 @@ def subcategory_search_by_user(request, pk):
 #         Categories_all = Categories.objects.all()
 #         Search_with_price_all = Search_with_price.objects.all()
 #
-#         # query jobs
-#         all_jobs = posted_jobs.objects.filter(job_post_status='2').order_by('-id')
-#         p_jobs = Paginator(all_jobs, 10)
-#         page2 = p_jobs.page(1)
+
 #
-#         context6 = {'Categories_all':Categories_all, 'Search_with_price_all':Search_with_price_all, 'Product_Details_all':page, 'get_all_prod_by_cat2':get_all_prod_by_cat2, 'price_details_get':price_details_get, 'list2':list2, 'all_jobs':page2}
+#         context6 = {'Categories_all':Categories_all, 'Search_with_price_all':Search_with_price_all, 'Product_Details_all':page, 'get_all_prod_by_cat2':get_all_prod_by_cat2, 'price_details_get':price_details_get, 'list2':list2}
 #         return render(request, 'index.html', context6)
 #
 #     else:

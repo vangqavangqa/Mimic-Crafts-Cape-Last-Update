@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product_Details, Categories, posted_jobs, job_post_status, Order, EmailConfirmed, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products
+from .models import Product_Details, Categories,Order, EmailConfirmed, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products
 
 # Register your models here.
 
@@ -55,8 +55,6 @@ admin.site.register(Custom_Project, show_Custom_Project)
 admin.site.register(newsletter_table, show_newsletter)
 admin.site.register(Product_Details, show_product)
 admin.site.register(Categories)
-# admin.site.register(posted_jobs)
-# admin.site.register(job_post_status)
 admin.site.register(Order, show_order)
 admin.site.register(bennar)
 admin.site.register(contact_table)

@@ -126,33 +126,6 @@ class contact_table(models.Model):
         return self.name
 
 
-class job_post_status(models.Model):
-    class Meta:
-        verbose_name_plural = 'Job Post Status'
-    job_post_status=models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.job_post_status
-
-
-class posted_jobs(models.Model):
-    class Meta:
-        verbose_name_plural = 'Posted Jobs'
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    job_title = models.CharField(max_length=255, blank=True)
-    company_name=models.CharField(max_length=255, default='', blank=True)
-    job_details = models.TextField(blank=True)
-    qualification = models.CharField(max_length=255, default='', blank=True)
-    job_location = models.CharField(max_length=255, blank=True)
-    job_type = models.CharField(max_length=255, blank=True)
-    salary = models.CharField(max_length=255, blank=True)
-    phone_number = models.CharField(max_length=255, blank=True)
-    job_post_status = models.ForeignKey(job_post_status, on_delete=models.CASCADE)
-    post_date=models.DateField(default=datetime.now(), blank=True)
-    email = models.CharField(max_length=255, blank=True)
-
-    def __str__(self):
-        return self.user.username+" - "+self.job_title+" - "+self.salary+" - "+self.job_post_status.job_post_status
 
 
 class Order(models.Model):
