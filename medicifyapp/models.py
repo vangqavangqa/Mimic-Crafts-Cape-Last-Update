@@ -58,6 +58,35 @@ class Brands(models.Model):
 
 
 
+class Service_Table(models.Model):
+    class Meta:
+        verbose_name_plural = 'Service Table'
+    Service_name = models.CharField(max_length=255)
+    Service_discription = models.TextField(default='')
+    Service_image = models.ImageField(upload_to='uploads/category_img', null=True, blank=True, default='')
+
+    def __str__(self):
+        return self.Service_name
+
+
+class Service_Request(models.Model):
+    class Meta:
+        verbose_name_plural = 'Service Request'
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    Service = models.ForeignKey(Service_Table, on_delete=models.CASCADE, null=True, blank=True)
+    full_name = models.CharField(max_length=255, default = '', blank=True, null=True)
+    company_name = models.CharField(max_length=255, default='', blank=True, null=True)
+    city = models.CharField(max_length=255)
+    postal_code = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    phone = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    Discription = models.TextField(blank=True, null=True)
+    Attachment_files = models.FileField(upload_to='services_picture', blank=True, null=True)
+    date = models.DateField(default=datetime.now(), blank=True)
+
+
+
 class Categories(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'

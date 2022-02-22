@@ -9,6 +9,15 @@
 {% if messages %}
 {% for message in messages %}
 
+<style>
+	.text_max_1 {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     display: -webkit-box;
+     -webkit-line-clamp: 1; /* number of lines to show */
+     -webkit-box-orient: vertical;
+  }
+</style>
 
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
@@ -33,62 +42,71 @@
 {% endfor %}
 {% endif %}
 
-
-
 	<main>
-		<div class="container">
-			<div class="container margin_30">
+		<div class="container margin_30">
 
-				<h5> {{get_category.category_name}}</h5><hr>
 			<div class="row">
+
 				<div class="col-lg-9">
-					<div class="alert alert-info text-center" style="background-color:#1D73CF;" role="alert">
-					  <h4 style=" color:white;">Subcategories</h4>
-					</div>
-					<div class="alert alert-warning" role="alert">
-					  About {{qty_all_subcat}} Result Found!
-					</div>
+					<h3 class="text-center">All Services</h3><hr>
 
-					{% if cats %}
+
 					<div class="row small-gutters">
-						{% for n in cats %}
 
+						{% if serviess %}
+						{% for n in serviess %}
 						<div class="col-6 col-md-4 mt-3" style="box-shadow: 2px 2px 5px 2px #888888;">
 							<div class="grid_item">
 <!--								<span class="ribbon off">{{n.product_status}}</span>-->
 								<figure>
-									<a href="{% url 'products_subcats_brands' %}?subcategory={{n.id}}">
-										<img class="card-img-top" src="/media/{{n.Subcategory_image}}" data-src="/media/{{n.image}}" alt="" style="max-width:100%; width:auto; height:100px; display: block; margin-left: auto; margin-right: auto; padding-top:12px;">
+									<a href="{% url 'subcats_of_cat' n.id %}">
+										<img class="card-img-top" src="/media/{{n.Service_image}}" data-src="/media/{{n.Service_image}}" alt="" style="max-width:100%; width:80%; height:auto; display: block; margin-left: auto; margin-right: auto; padding-top:12px;">
 <!--										<img class="img-fluid lazy" src="/media/{{n.image}}" data-src="/media/{{n.image}}" alt="">-->
 									</a>
-
-
-
 								</figure>
 								<a>
-									<h3 id="nameproduct{{n.id}}">{{n.Subcategory}}</h3>
-									<h3><small>{{n.Subcategory_discription}}</small></h3>
+									<h3 id="nameproduct{{n.id}}">{{n.Service_name}}</h3>
+									<br>
+									<h3><small class="text_max_1">{{n.Service_discription}}</small></h3>
 								</a>
-								<a href="{% url 'products_subcats_brands' %}?subcategory={{n.id}}" class="btn btn-primary" style="color:white;">View All</a>
-
+								<br>
+								<br>
+								<a href="{% url 'request_for_service' n.id %}" class="btn btn-primary" style="color:white;">Request Service</a>
 							</div>
 							<!-- /grid_item -->
 						</div>
 						<!-- /col -->
 						{% endfor %}
-					</div>
-					{% else %}
-						<div class="alert alert-info" role="alert">
-						  No Subcategory in This Category
-						</div>
+						{% else %}
+						<span style="display: flex;
+       justify-content: center">No Service Available NOW !</span>
 						{% endif %}
+
+					</div>
 					<!-- /row -->
 
 
 
-					<div class="pagination__wrapper">
+					<div class="pagination__wrapper mt-4">
 						<ul class="pagination">
+							{% if list %}
+							<li>
+								{% if Product_Details_all.has_previous %}
+								<a href="{% url 'index' %}?page={{Product_Details_all.previous_page_number}}" class="prev" title="previous page">&#10094;</a>
+								{% endif %}
+							</li>
+							{% for i in list %}
+							<li>
+								<a href="{% url 'index' %}?page={{i}}" class="{% if page_num == i %}active{% else %}{% endif %}">{{i}}</a>
+							</li>
+							{% endfor %}
 
+							<li>
+								{% if Product_Details_all.has_next %}
+								<a href="{% url 'index' %}?page={{Product_Details_all.next_page_number}}" class="next" title="next page">&#10095;</a>
+								{% endif %}
+							</li>
+							{% endif %}
 
 
 							{% if list1 %}
@@ -106,6 +124,27 @@
 							<li>
 								{% if Product_Details_all.has_next %}
 								<a href="?page={{Product_Details_all.next_page_number}}{% if request.GET.search_product %}&search_product={{ request.GET.search_product }}{% endif %}" class="next" title="next page">&#10095;</a>
+								{% endif %}
+							</li>
+							{% endif %}
+
+
+
+							{% if list2 %}
+							<li>
+								{% if Product_Details_all.has_previous %}
+								<a href="?page={{Product_Details_all.previous_page_number}}{% if request.GET.checkbox_cat_seach %}&checkbox_cat_seach={{ request.GET.checkbox_cat_seach }}{% endif %}{% if request.GET.price_search_check %}&price_search_check={{ request.GET.price_search_check }}{% endif %}" class="prev" title="previous page">&#10094;</a>
+								{% endif %}
+							</li>
+							{% for i in list2 %}
+							<li>
+								<a href="?page={{i}}{% if request.GET.checkbox_cat_seach %}&checkbox_cat_seach={{ request.GET.checkbox_cat_seach }}{% endif %}{% if request.GET.price_search_check %}&price_search_check={{ request.GET.price_search_check }}{% endif %}" class="active">{{i}}</a>
+							</li>
+							{% endfor %}
+
+							<li>
+								{% if Product_Details_all.has_next %}
+								<a href="?page={{Product_Details_all.next_page_number}}{% if request.GET.checkbox_cat_seach %}&checkbox_cat_seach={{ request.GET.checkbox_cat_seach }}{% endif %}{% if request.GET.price_search_check %}&price_search_check={{ request.GET.price_search_check }}{% endif %}" class="next" title="next page">&#10095;</a>
 								{% endif %}
 							</li>
 							{% endif %}
@@ -127,7 +166,7 @@
 							</div>
 						  </div>
 
-							<div class="card">
+						<div class="card">
 							<div class="card-header" id="headingOne_Services">
 							  <h2 class="mb-0">
 								<a href="{% url 'all_services' %}" class="btn btn-link btn-block text-left text-center" style="background-color:#1D73CF; color:white;">
@@ -136,8 +175,6 @@
 							  </h2>
 							</div>
 						  </div>
-
-
 
 						</div>
 					</ul><hr>
@@ -239,7 +276,6 @@
 						  </div>
 						</div>
 					</ul>
-
 
 				</div>
 				<!-- /col -->

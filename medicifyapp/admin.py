@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product_Details, Categories,Order, EmailConfirmed, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products
+from .models import Product_Details, Categories,Order, EmailConfirmed, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products, Service_Table, Service_Request
 
 # Register your models here.
 
@@ -19,6 +19,10 @@ admin.site.register(EmailConfirmed, EmailConfirmedAdmin)
 
 class show_order(admin.ModelAdmin):
     list_display = ['id', 'user', 'company_name', 'email', 'order_date']
+
+
+class show_service_request(admin.ModelAdmin):
+    list_display = ['id', 'user', 'Service','full_name', 'company_name', 'country','email', 'date']
 
 
 class show_Custom_Project(admin.ModelAdmin):
@@ -47,6 +51,8 @@ class show_Social_link(admin.ModelAdmin):
     list_display = ['Website', 'link']
 
 
+admin.site.register(Service_Table)
+admin.site.register(Service_Request, show_service_request)
 admin.site.register(Social_Links, show_Social_link)
 admin.site.register(Table_Special_Offer_Products, show_Special_Offer_Products)
 # admin.site.register(Table_Special_Offer_Categories, show_Special_Offer_Categories)

@@ -88,7 +88,7 @@
                             <div class="col-md-7">
                               <div class="card-body">
                                   <h5 class="card-title"><a href="{% url 'details_products' k.id %}">{{k.product_name}}</a></h5>
-                                  <span class="text-muted text_max_3">{{k.description | safe}}</span><br>
+                                  <span class="text-muted">{{k.description | safe | truncatechars:200}}</span><br>
 								  <a href="{% url 'details_products' k.id %}" class="btn btn-warning">Request For Quote</a>
 								  {% if k.catalogue %}
 							<a href="/media/{{k.catalogue}}" class="btn btn-info" target="_blank">Catalogue</a>
@@ -156,6 +156,16 @@
 							  <h2 class="mb-0">
 								<a href="{% url 'all_brands' %}" class="btn btn-link btn-block text-left text-center" style="background-color:#1D73CF; color:white;">
 									<span style="color:white;">See Brands</span>
+								</a>
+							  </h2>
+							</div>
+						  </div>
+
+							<div class="card">
+							<div class="card-header" id="headingOne_Services">
+							  <h2 class="mb-0">
+								<a href="{% url 'all_services' %}" class="btn btn-link btn-block text-left text-center" style="background-color:#1D73CF; color:white;">
+									<span style="color:white;">Services</span>
 								</a>
 							  </h2>
 							</div>

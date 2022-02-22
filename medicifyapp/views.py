@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Product_Details, Categories, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products
+from .models import Product_Details, Categories, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products, Service_Table, Service_Request
 from django.db.models import Q
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage
@@ -156,6 +156,68 @@ def all_brands(request):
     return render(request, 'brand_list.html', context2)
 
 
+
+
+def all_services(request):
+    all_ser = Service_Table.objects.all()
+    # pagination
+    p = Paginator(all_ser, 15)
+    # print(p.num_pages)
+    number_of_pages = p.num_pages
+
+    #show list of pages
+    number_of_pages_1 = p.num_pages+1
+    list = []
+    for i in range(1, number_of_pages_1):
+        list.append(i)
+
+    page_num = request.GET.get('page', 1)
+    page_num = int(page_num)
+    try:
+        page = p.page(page_num)
+    except EmptyPage:
+        page = p.page(1)
+
+    Categories_all = Categories.objects.all()
+
+    context2 = {'serviess':page, 'Categories_all':Categories_all, 'list1':list, 'page_num':page_num, 'page_num':page_num}
+    return render(request, 'all_services.html', context2)
+
+
+
+def request_for_service(request, pk):
+    try:
+        get_service = Service_Table.objects.get(id=pk)
+        context = {'get_service':get_service}
+        return render(request, 'request_for_service.html', context)
+    except:
+        return redirect('all_services')
+
+def submit_for_service(request):
+    full_name = request.POST.get('full_name')
+    service_id = request.POST.get('service_id')
+    company_name = request.POST.get('company_name')
+    city = request.POST.get('city')
+    postal_code = request.POST.get('postal_code')
+    country = request.POST.get('country')
+    phone = request.POST.get('phone')
+    email = request.POST.get('email')
+    discription = request.POST.get('discription')
+    Attachment_files = request.FILES.get('Attachment_files')
+
+    get_srv = Service_Table.objects.get(id=service_id)
+
+    # print(full_name, company_name, city, postal_code, country, phone, email, discription, Attachment_files)
+    if request.user.is_authenticated:
+        man = request.user
+    else:
+        man=None
+    Var_Service_Request = Service_Request(user=man, Service=get_srv, full_name=full_name, company_name=company_name, city=city, postal_code=postal_code, country=country, phone=phone, email=email, Discription=discription, Attachment_files=Attachment_files)
+    Var_Service_Request.save()
+
+    messages.success(request, "Request Has Been Submitted !!")
+
+    return redirect('all_services')
 
 
 def subcats_of_cat(request, pk):
