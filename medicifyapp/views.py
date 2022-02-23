@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Product_Details, Categories, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products, Service_Table, Service_Request
+from .models import Product_Details, Categories, Order, bennar, contact_table, Subcategory, Discount_Coupon, blog_post, Blogs_Comments, Brands, Custom_Project, catalog, newsletter_table, Navbar_logo_text_table, Number_Table_Navbar_Footer, Address_text_table, Table_Special_Offer, Table_Special_Offer_Categories, Social_Links, Table_Special_Offer_Products, Service_Table, Service_Request, Service_Banner
 from django.db.models import Q
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage
@@ -119,7 +119,6 @@ def index(request):
 
 
     bennar_first = bennar.objects.first()
-
     if bennar_first:
         get_id_benner=bennar_first.id
         bennar_all = bennar.objects.all().exclude(id=get_id_benner)
@@ -180,7 +179,14 @@ def all_services(request):
 
     Categories_all = Categories.objects.all()
 
-    context2 = {'serviess':page, 'Categories_all':Categories_all, 'list1':list, 'page_num':page_num, 'page_num':page_num}
+    bennar_first = Service_Banner.objects.first()
+    if bennar_first:
+        get_id_benner = bennar_first.id
+        bennar_all = Service_Banner.objects.all().exclude(id=get_id_benner)
+    else:
+        bennar_all = None
+
+    context2 = {'serviess':page, 'Categories_all':Categories_all, 'list1':list, 'page_num':page_num, 'page_num':page_num, 'bennar_all':bennar_all, 'bennar_first':bennar_first}
     return render(request, 'all_services.html', context2)
 
 

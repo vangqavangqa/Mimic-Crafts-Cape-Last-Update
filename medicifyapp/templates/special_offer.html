@@ -314,6 +314,10 @@ var x = setInterval(function() {
   if (distance < 0) {
     clearInterval(x);
     //document.getElementById("demo").innerHTML = "EXPIRED";
+    document.getElementById('days_show').innerHTML = 00;
+  document.getElementById('hours_show').innerHTML = 00;
+  document.getElementById('minutes_show').innerHTML = 00;
+  document.getElementById('seconds_show').innerHTML = 00;
   }
 }, 1000);
 

@@ -69,6 +69,18 @@ class Service_Table(models.Model):
         return self.Service_name
 
 
+
+class Service_Banner(models.Model):
+    class Meta:
+        verbose_name_plural = 'Service Banner'
+    Banner_name = models.CharField(max_length=255)
+    Service_image = models.ImageField(upload_to='uploads/service_banner', null=True, blank=True, default='')
+
+    def __str__(self):
+        return self.Banner_name
+
+
+
 class Service_Request(models.Model):
     class Meta:
         verbose_name_plural = 'Service Request'
