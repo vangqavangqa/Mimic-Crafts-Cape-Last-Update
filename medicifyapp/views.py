@@ -376,6 +376,8 @@ def products_page(request):
 
 def brand_products(request, pk):
     get_brnd = Brands.objects.get(id=pk)
+    print('get the brand')
+    print(get_brnd)
     products_of_brand = Product_Details.objects.filter(Brands=get_brnd)
     # pagination
     p = Paginator(products_of_brand, 15)
@@ -393,7 +395,7 @@ def brand_products(request, pk):
     except EmptyPage:
         page = p.page(1)
     Categories_all = Categories.objects.all()
-    context = {'all_prd':page, 'Categories_all':Categories_all, 'list':list, 'page_num':page_num}
+    context = {'all_prd':page, 'Categories_all':Categories_all, 'list':list, 'page_num':page_num, 'get_brand':get_brnd}
     return render(request, 'products_page5.html', context)
 
 
