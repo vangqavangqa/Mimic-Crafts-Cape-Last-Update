@@ -88,7 +88,7 @@
                             <div class="col-md-7">
                               <div class="card-body">
                                   <h5 class="card-title"><a href="{% url 'details_products' k.id %}">{{k.product_name}}</a></h5>
-                                  <span class="text-muted text_max_3">{{k.description | safe}}</span><br>
+                                  <span class="text-muted text_max_3">{{k.Short_description | safe}}</span><br>
 								  <a href="{% url 'details_products' k.id %}" class="btn btn-warning">Request For Quote</a>
 								  {% if k.catalogue %}
 							<a href="/media/{{k.catalogue}}" class="btn btn-info" target="_blank">Catalogue</a>

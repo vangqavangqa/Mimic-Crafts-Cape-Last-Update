@@ -137,6 +137,7 @@ class Product_Details(models.Model):
     Brands=models.ForeignKey(Brands, on_delete=models.CASCADE, default=None, null=True, blank=True)
     # price = models.IntegerField()
     # currency_type = models.CharField(max_length=255, default='ZAR')
+    Short_description = RichTextField(blank=True, null=True, default='')
     description = RichTextField(blank=True, null=True)
     image = models.ImageField(upload_to='uploads/product_image', null=True, blank=True, default='')
     image2 = models.ImageField(upload_to='uploads/product_image', null=True, blank=True, default='')
