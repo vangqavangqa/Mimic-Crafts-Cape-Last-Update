@@ -86,7 +86,7 @@ def special_offer(request):
 
 def index(request):
     Product_Details_all = Product_Details.objects.all()
-    all_category = Categories.objects.all()
+    all_category = Categories.objects.all().order_by('category_name')
     # pagination
     p = Paginator(all_category, 15)
     # print(p.num_pages)
