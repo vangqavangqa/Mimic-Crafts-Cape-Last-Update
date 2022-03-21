@@ -9,6 +9,17 @@ import hashlib
 from ckeditor.fields import RichTextField
 
 
+class dynamic_theme_color(models.Model):
+    color_name = models.CharField(max_length=255)
+    color_code = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.color_name + ' - ' + self.color_code
+
+    def save(self, *args, **kwargs):
+        dynamic_theme_color.objects.all().delete()
+        super().save(*args, **kwargs)
+
 
 class EmailConfirmed(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE)
